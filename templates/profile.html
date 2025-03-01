@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ profile_username }}'s Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="bg-gray-50 font-montserrat min-h-screen flex flex-col">
+    <div class="flex-1 w-full p-4 md:p-6">
+        <div class="bg-white rounded-2xl shadow-md p-6 border border-purple-100">
+            <div class="flex items-center gap-6 mb-6">
+                <img src="{{ url_for('uploaded_file', filename=profile_pic) }}" alt="Profile" class="w-16 h-16 md:w-24 md:h-24 rounded-full border-2 border-purple-300">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-purple-600">{{ profile_username }}</h2>
+                    <p class="text-sm text-gray-600 italic">{{ bio }}</p>
+                    <p class="text-sm {{ 'text-green-500' if online else 'text-gray-500' }}">{{ 'Online' if online else 'Offline' }}</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Followers -->
+                <div>
+                    <h3 class="text-lg font-semibold text-purple-600 mb-2">Followers ({{ followers|length }})</h3>
+                    <ul class="space-y-2">
+                        {% for follower in followers %}
+                            <li class="p-2 bg-gray-100 rounded-xl text-gray-700">{{ follower }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- Following -->
+                <div>
+                    <h3 class="text-lg font-semibold text-purple-600 mb-2">Following ({{ following|length }})</h3>
+                    <ul class="space-y-2">
+                        {% for following_user in following %}
+                            <li class="p-2 bg-gray-100 rounded-xl text-gray-700">{{ following_user }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <!-- Posts -->
+            <h3 class="text-lg font-semibold text-purple-600 mt-6 mb-4">Posts</h3>
+            <div class="space-y-3">
+                {% for post in posts %}
+                    <div class="p-3 bg-gray-100 rounded-2xl shadow-sm">
+                        <p class="text-gray-700">{{ post.content }}</p>
+                        <p class="text-sm text-gray-500">{{ post.timestamp }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <a href="{{ url_for('dashboard') }}" class="mt-6 inline-block bg-purple-500 text-white px-4 py-2 rounded-xl hover:bg-purple-600 transition-all duration-300 font-semibold shadow-md">Back to Dashboard</a>
+            {% if is_friend %}
+                <a href="{{ url_for('chat', friend=profile_username) }}" class="mt-6 ml-4 inline-block bg-yellow-400 text-gray-800 px-4 py-2 rounded-xl hover:bg-yellow-500 transition-all duration-300 font-semibold shadow-md">Chat</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

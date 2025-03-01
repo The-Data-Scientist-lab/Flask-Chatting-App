@@ -1,0 +1,37 @@
+/* Add to the bottom of style.css */
+.input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.emoji-btn {
+    background: #FFD700;
+    color: #1A1A2E;
+    font-size: 20px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.emoji-btn:hover {
+    background: #D4A017;
+}
+
+emoji-picker {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    background: #16213E;
+    border: 1px solid #FFD700;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+}
+
+.typing-indicator {
+    color: #FFD700;
+    font-style: italic;
+    font-size: 14px;
+    margin-bottom: 10px;
+    height: 20px;
+}
